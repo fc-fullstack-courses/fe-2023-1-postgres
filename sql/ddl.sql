@@ -16,7 +16,7 @@ CREATE TABLE users(
   ), -- UNIQUE(email) -- обмеження таблиці
   CONSTRAINT "invalid email" CHECK (
     email ~ '^[a-zA-Z0-9]{1,32}@[a-z]{2,32}\.[a-z]{2,32}$' -- регулярка
-  ),
+  )
 );
 --
 CREATE TABLE a(
