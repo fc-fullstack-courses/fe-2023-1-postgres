@@ -18,6 +18,22 @@ CREATE TABLE users(
     email ~ '^[a-zA-Z0-9]{1,32}@[a-z]{2,32}\.[a-z]{2,32}$' -- регулярка
   ),
 );
+--
+CREATE TABLE a(
+  b INT,
+  c INT,
+  CONSTRAINT "Unique b and c values" UNIQUE(b,c) -- унікальні комбінації значень b та с
+);
+
+-- DROP TABLE a;
+
+-- INSERT INTO a (b, c)
+-- VALUES (10, 5),
+-- (15,4),
+-- (10,3),
+-- (1,5),
+-- (10,5);
+
 /*
  символьні типи даних 
  text - будь який текст будь якої довжини
