@@ -1,8 +1,10 @@
 -- занесення даних у таблицю
 INSERT INTO users 
 -- довільний порядок вставки даних
-(height, first_name, last_name, is_male, birthday, email) 
+(height, first_name, last_name, birthday, email, is_male) 
 VALUES 
 -- вставка декількох користувачів одночасно
-(2.1, 'Jane', 'Doe', false, '1973-11-13', 'jane@outlook.com'),;
-(1.72, 'Anna', 'Nesterenko', false, '1987-07-04', 'nesternko@outlook.com');
+(0.01, 'User', 'Userenko', '1999-01-01', 'mail@mail.com', true),
+(1.62, '', '', '1699-01-02', '', true),
+(1.35, 'User', 'Userenko', '1983-05-14', 'mail@mail.com', NULL),
+(-0.5, 'User', 'Userenko', '1999-01-01', 'mail3@mail.com', true);
