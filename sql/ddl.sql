@@ -1,5 +1,6 @@
 -- створення таблиці в БД
 CREATE TABLE users(
+  id INTEGER PRIMARY KEY,
   first_name VARCHAR(64) NOT NULL CHECK (first_name != ''),
   last_name VARCHAR(64) NOT NULL CHECK (last_name != ''),
   email VARCHAR(256) NOT NULL UNIQUE CHECK (
@@ -49,6 +50,7 @@ CREATE TABLE users(
  
  CHECK - загальна перевірка, якщо умова правдива то дія дозволяється інакше помилка
  
- */
+ PRIMARY KEY - первинний ключ, комбінація обмежень UNIQUE і NOT NULL. Один на таблицю
+*/
 --Видалення таблиці
 DROP TABLE users;
