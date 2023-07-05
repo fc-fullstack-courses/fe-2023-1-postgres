@@ -1,6 +1,7 @@
 -- створення таблиці в БД
 CREATE TABLE users(
-  id INTEGER PRIMARY KEY,
+  -- id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  id SERIAL PRIMARY KEY,
   first_name VARCHAR(64) NOT NULL CHECK (first_name != ''),
   last_name VARCHAR(64) NOT NULL CHECK (last_name != ''),
   email VARCHAR(256) NOT NULL UNIQUE CHECK (
@@ -10,7 +11,7 @@ CREATE TABLE users(
     height > 0.4
     AND height < 3
   ),
-  is_male BOOLEAN,
+  is_male BOOLEAN DEFAULT true, -- значення за замовчуванням
   birthday DATE NOT NULL CHECK(
     birthday > '1900-01-01'
     AND birthday < current_date
