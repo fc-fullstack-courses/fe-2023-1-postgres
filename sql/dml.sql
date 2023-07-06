@@ -23,3 +23,7 @@ first_name = 'Anton',
 email = 'anton@mail.com', 
 weight = 123 
 WHERE id = 2;
+-- Видалення записів
+DELETE FROM users; -- видаляє всі записи в таблиці
+DELETE FROM users WHERE id = 3;
+DELETE FROM users WHERE height > 1.65;
