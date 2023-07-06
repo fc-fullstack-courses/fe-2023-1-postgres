@@ -25,3 +25,6 @@ WHERE height BETWEEN 1 AND 2.5;
 -- перейменування виводів
 SELECT first_name AS "Ім'я", surname AS "Прізвище", email Пошта
 FROM users;
+-- Пагінація в БД
+SELECT * FROM users
+LIMIT 2 OFFSET 0;
