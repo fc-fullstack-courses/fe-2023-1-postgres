@@ -72,3 +72,42 @@ CREATE TABLE a(
 */
 --Видалення таблиці
 DROP TABLE users;
+
+-- Зміна структури таблиці
+-- ALTER TABLE 
+-- Додавання нового стовпчика(-ів)
+ALTER TABLE users 
+ADD COLUMN eye_color VARCHAR(100) NOT NULL DEFAULT 'brown' CHECK(eye_color != ''),
+ADD COLUMN hair_color VARCHAR(100) CHECK(hair_color != '');
+-- Видалення стовпчиків
+ALTER TABLE users
+DROP COLUMN hair_color;
+-- Додавання обмежень
+ALTER TABLE users
+ADD UNIQUE(email);
+-- Додавання NOT NULL
+ALTER TABLE users
+ALTER COLUMN is_male SET NOT NULL;
+-- Видалення обмежень
+ALTER TABLE users
+DROP CONSTRAINT "User must have correct name";
+-- Видалення NOT NULL
+ALTER TABLE users
+ALTER COLUMN is_male DROP NOT NULL;
+-- Зміна значень за замовчанням
+ALTER TABLE users
+ALTER COLUMN height
+SET DEFAULT 1.5;
+-- "Видалення" значень за замовчанням (воно по факту стає NULL)
+ALTER TABLE users
+ALTER COLUMN height
+DROP DEFAULT;
+-- Зміна типу даних
+ALTER TABLE users
+ALTER COLUMN email
+TYPE VARCHAR(128);
+-- Перейменування:
+--  Стовпчика
+ALTER TABLE users RENAME COLUMN last_name TO surname;
+-- таблиці
+ALTER TABLE users RENAME TO people;
