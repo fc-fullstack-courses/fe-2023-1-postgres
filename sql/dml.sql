@@ -2,7 +2,7 @@
 -- Create
 INSERT INTO users 
 -- довільний порядок вставки даних
-( height, first_name, last_name, birthday, email, is_male) 
+( height, first_name, surname, birthday, email, is_male) 
 VALUES 
 -- вставка декількох користувачів одночасно
 (0.51, 'User1', 'Userenko', '1999-01-01', 'asds@sadsa.asds', true),
@@ -27,3 +27,6 @@ WHERE id = 2;
 DELETE FROM users; -- видаляє всі записи в таблиці
 DELETE FROM users WHERE id = 3;
 DELETE FROM users WHERE height > 1.65;
+-- Повертання значень після маніпуляцій
+UPDATE users SET rating = 3.5 WHERE id = 5 RETURNING id, rating;
+DELETE FROM users WHERE id < 100 RETURNING *;
