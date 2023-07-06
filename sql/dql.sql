@@ -22,3 +22,6 @@ WHERE email ~ '^m.{0,}';
 SELECT * FROM users
 -- WHERE height >= 1 AND height <=2.5;
 WHERE height BETWEEN 1 AND 2.5;
+-- перейменування виводів
+SELECT first_name AS "Ім'я", surname AS "Прізвище", email Пошта
+FROM users;
