@@ -32,6 +32,18 @@ CREATE TABLE products_to_orders (
   PRIMARY KEY (product_id, order_id)
 );
 
+-- 1: 1 (нежорстке)
+CREATE TABLE manufacturers (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL UNIQUE REFERENCES users, -- обов'язково має бути користувач
+  created_at timestamp NOT NULL DEFAULT current_timestamp,
+  updated_at timestamp NOT NULL DEFAULT current_timestamp
+);
+--
+ALTER TABLE users
+ADD COLUMN manufacturer_id INT UNIQUE REFERENCES manufacturers;
+
+
 -- Створення користувачів
 INSERT INTO users (
 first_name,
@@ -80,4 +92,9 @@ VALUES
 (5,3,1),
 (5,1,1),
 (6,4,4);
---
+-- Створення виробників
+INSERT INTO manufacturers
+(user_id)
+VALUES
+(2);
+UPDATE users SET manufacturer_id = 1 WHERE id = 2;
