@@ -20,9 +20,10 @@ WHERE id = 1;
 -- оновлення декількох значень.
 UPDATE users SET 
 first_name = 'Anton', 
+surname = 'Shevchenko',
 email = 'anton@mail.com', 
 weight = 123 
-WHERE id = 2;
+WHERE id = 9;
 -- Видалення записів
 DELETE FROM users; -- видаляє всі записи в таблиці
 DELETE FROM users WHERE id = 3;

@@ -28,3 +28,25 @@ FROM users;
 -- Пагінація в БД
 SELECT * FROM users
 LIMIT 2 OFFSET 0;
+-- Відобразити id, email і повне ім'я
+SELECT id, email, first_name || ' ' || surname AS "full name", birthday
+FROM users;
+-- або
+SELECT id, email, concat(first_name, ' ', surname) AS "full name", birthday
+FROM users;
+-- Всі користувачі, повне ім'я яких менше ніж 16 символів
+SELECT id, email, concat(first_name, ' ', surname) AS full_name, birthday
+FROM users
+WHERE length(concat(first_name, ' ', surname)) < 16;
+-- 
+SELECT * FROM (
+  SELECT id, email, concat(first_name, ' ', surname) AS full_name, birthday
+  FROM users
+) AS "users_with_full_name"
+WHERE length(full_name) < 16;
+-- 
+SELECT *  FROM (
+  SELECT  concat(first_name, ' ', surname) AS full_name, *
+  FROM users
+) AS "users_with_full_name"
+WHERE length(full_name) < 16;
