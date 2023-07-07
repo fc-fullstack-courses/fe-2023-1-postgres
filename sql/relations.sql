@@ -21,3 +21,31 @@
     людина 1 : 0 ідентифікаційний код
 
 */
+
+-- 1 : 1
+CREATE TABLE countries (
+  id SERIAL PRIMARY KEY,
+  name TEXT
+);
+--
+CREATE TABLE presidents (
+  id SERIAL PRIMARY KEY,
+  name TEXT,
+  country_id INT NOT NULL UNIQUE REFERENCES countries DEFERRABLE INITIALLY DEFERRED
+);
+--
+ALTER TABLE countries
+ADD COLUMN  president_id INT NOT NULL UNIQUE REFERENCES presidents DEFERRABLE INITIALLY DEFERRED;
+--
+BEGIN; -- транзакція розпочата
+INSERT INTO countries (name, president_id)
+VALUES 
+('Ukraine', 1);
+INSERT INTO presidents (name, country_id) 
+VALUES
+('Volodymyr Zelenskyy', 1);
+COMMIT; -- транзакція завершена
+
+DROP TABLE countries CASCADE;
+
+DROP TABLE presidents CASCADE;

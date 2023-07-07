@@ -32,7 +32,7 @@ CREATE TABLE products_to_orders (
   PRIMARY KEY (product_id, order_id)
 );
 
--- 1: 1 (нежорстке)
+-- 0 : 1 (нежорстке)
 CREATE TABLE manufacturers (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL UNIQUE REFERENCES users, -- обов'язково має бути користувач
