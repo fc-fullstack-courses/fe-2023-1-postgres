@@ -9,6 +9,16 @@
       "database": "fe-2023-1-postgres",
       "username": "postgres",
       "password": "postgres"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "Not rozetka",
+      "database": "fe_2023_1_not_rozetka",
+      "username": "postgres",
+      "password": "postgres"
     }
   ]
 }

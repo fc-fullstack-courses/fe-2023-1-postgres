@@ -111,3 +111,5 @@ TYPE VARCHAR(128);
 ALTER TABLE users RENAME COLUMN last_name TO surname;
 -- таблиці
 ALTER TABLE users RENAME TO people;
+-- Створення нової БД
+CREATE DATABASE fe_2023_1_not_rozetka;
