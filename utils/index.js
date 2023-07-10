@@ -9,7 +9,7 @@ const {
   minWeight,
 } = require('../configs/randomGeneration.json');
 
-module.exports.generateUser = (u) => {
+const generateUser = (u) => {
   const {
     gender,
     name: { first, last },
