@@ -1,16 +1,18 @@
 const axios = require('axios').default;
-
+const { results, seed } = require('../configs/api.json');
 
 // axios.get('url')
 
 const http = axios.create({
-  baseURL: 'https://randomuser.me/api'
-})
+  baseURL: 'https://randomuser.me/api',
+});
 
 // http.get('users')
 
 module.exports.getUsers = async () => {
-  const { data: { results } } = await http.get('?results=300&seed=fe-2023-1&page=1');
+  const {
+    data: { results: users },
+  } = await http.get(`?results=${results}&seed=${seed}&page=1`);
 
-  return results;
-}
+  return users;
+};
