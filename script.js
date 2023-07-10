@@ -1,14 +1,7 @@
 const { Client } = require('pg');
 const _ = require('lodash');
 const { getUsers } = require('./api');
-
-const config = {
-  user: 'postgres',
-  password: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  database: 'fe_2023_1_not_rozetka',
-};
+const config = require('./configs/db.json');
 
 const client = new Client(config);
 
@@ -48,7 +41,7 @@ function generateUser(u) {
 function mapUsers(users) {
   return users.map((user) => generateUser(user)).join(',');
 }
-start();
+// start();
 async function start() {
   await client.connect();
 
