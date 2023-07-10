@@ -1,47 +1,12 @@
 const { Client } = require('pg');
-const _ = require('lodash');
 const { getUsers } = require('./api');
 const config = require('./configs/db.json');
+const { mapUsers } = require('./utils');
+
 
 const client = new Client(config);
 
-const hairColors = [
-  'black',
-  'brown',
-  'blonde',
-  'red',
-  'ginger',
-  'white',
-  'green',
-  'pale',
-  'blue',
-  'rainbow',
-];
-
-function generateUser(u) {
-  const {
-    gender,
-    name: { first, last },
-    email,
-    login: { password },
-    dob: { date },
-  } = u;
-
-  const weight = _.random(50, 150, true);
-  const height = _.random(1, 3, true);
-  const footSize = _.random(20, 50, false);
-
-  const hairColor = hairColors[_.random(0, hairColors.length - 1, false)];
-
-  return `('${first}', '${last}', '${email}', '${password}', '${hairColor}', ${footSize}, ${
-    gender === 'male'
-  }, ${weight}, ${height}, '${date}')`;
-}
-
-function mapUsers(users) {
-  return users.map((user) => generateUser(user)).join(',');
-}
-// start();
+start();
 async function start() {
   await client.connect();
 
