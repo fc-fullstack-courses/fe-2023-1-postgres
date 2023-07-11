@@ -54,3 +54,7 @@ WHERE length(full_name) < 16;
 SELECT * 
 FROM users
 ORDER BY height DESC, foot_size ASC;
+-- Повернути користувачів, відсортувавши їх так, щоб спочатку йшли найлегкіші, наймолодші, з найбільшим розміром ноги
+SELECT id, weight, birthday, foot_size
+FROM users
+ORDER BY weight ASC, birthday DESC, foot_size DESC;
