@@ -55,3 +55,20 @@ SELECT avg(height), is_male
 FROM users
 WHERE weight < 100 -- звуження області пошуків.
 GROUP BY is_male;
+-- кількість людей з різними кольорами волосся, не показувати групи, в якіх знаходяться менше ніж 30 людей
+SELECT * FROM (
+  SELECT count(*) amount, hair_color
+FROM users
+GROUP BY hair_color
+) hc_amount
+WHERE amount > 30; -- фільтрація рядків / кортежів не можна агрегатні
+--
+SELECT count(*), hair_color
+FROM users
+GROUP BY hair_color
+HAVING count(*) > 30; -- фільтрація груп, можна агрегатні, не розуміє псевдоніми
+-- середній розмір ноги людей з різними кольорами волосся. Відфільтрувати середні розміри, менші ніж 35
+SELECT avg(foot_size), hair_color
+FROM users
+GROUP BY hair_color
+HAVING avg(foot_size) >= 35;
