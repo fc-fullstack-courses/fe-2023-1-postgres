@@ -50,3 +50,7 @@ SELECT *  FROM (
   FROM users
 ) AS "users_with_full_name"
 WHERE length(full_name) < 16;
+-- Сортування по зросту користувачів (DESC - зверху донизу, ASC - знизу догори)
+SELECT * 
+FROM users
+ORDER BY height DESC, foot_size ASC;
