@@ -50,3 +50,8 @@ GROUP BY is_male;
 SELECT is_male, min(weight), avg(weight), max(weight)
 FROM users
 GROUP BY is_male;
+--
+SELECT avg(height), is_male 
+FROM users
+WHERE weight < 100 -- звуження області пошуків.
+GROUP BY is_male;
