@@ -58,3 +58,39 @@ ORDER BY height DESC, foot_size ASC;
 SELECT id, weight, birthday, foot_size
 FROM users
 ORDER BY weight ASC, birthday DESC, foot_size DESC;
+-- LIKE
+SELECT *
+FROM users
+-- WHERE first_name = 'Toivo' === WHERE first_name LIKE 'Toivo'
+WHERE first_name ILIKE 't____';
+
+/*
+ Глоббінг   |     LIKE      |
+ *          |       %       |   будь-яка кількість будь-яких символів
+ ?          |       _       |   будь-який один символ
+
+  LIKE - регістрозалежне
+  ILIKE - регістронезалежне
+*/
+
+-- SIMILAR TO 
+
+/*
+гібрид LIKE і регулярок
+
+% = .{0,}
+_ = .
+*/
+SELECT *
+FROM users
+WHERE first_name SIMILAR TO '%o{2}%';
+-- POSIX RegEx
+/*
+  ~ - регістрозалежне співпадіння
+  !~ - регістрозалежне неспівпадіння
+  ~* - регістронезалежне співпадіння
+  !~* - регістронезалежне неспівпадіння
+*/
+SELECT *
+FROM users
+WHERE first_name ~ '.*o{2}.*';
