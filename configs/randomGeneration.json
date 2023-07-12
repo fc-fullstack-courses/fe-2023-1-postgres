@@ -1,20 +1,51 @@
 {
-  "hairColors": [
-    "black",
-    "brown",
-    "blonde",
-    "red",
-    "ginger",
-    "white",
-    "green",
-    "pale",
-    "blue",
-    "rainbow"
-  ],
-  "minWeight": 50,
-  "maxWeight": 150,
-  "minHeight": 1,
-  "maxHeight": 3,
-  "minFootSize": 20,
-  "maxFootSize": 50
+  "users": {
+    "minWeight": 50,
+    "maxWeight": 150,
+    "minHeight": 1,
+    "maxHeight": 3,
+    "minFootSize": 20,
+    "maxFootSize": 50,
+    "hairColors": [
+      "black",
+      "brown",
+      "blonde",
+      "red",
+      "ginger",
+      "white",
+      "green",
+      "pale",
+      "blue",
+      "rainbow"
+    ]
+  },
+  "orders": {
+    "chanceToMakeOrder": 50,
+    "minOrders": 1,
+    "maxOrders": 10,
+    "minProductsInOrder": 1,
+    "maxProductsInOrder": 10,
+    "minOrderQuantity": 1,
+    "maxOrderQuantity": 10
+  },
+  "manufacturers": {
+    "chanceOfBeingManufacturer": 33
+  },
+  "products": {
+    "amountProducts": 200,
+    "categories": [
+      "food",
+      "books",
+      "phones",
+      "keyboards",
+      "pets",
+      "powerstations",
+      "lights",
+      "misc"
+    ],
+    "minPrice": 100,
+    "maxPrice": 50000,
+    "minQuantity": 1000,
+    "maxQuantity": 25000
+  }
 }
