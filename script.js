@@ -1,8 +1,19 @@
+const fs = require('fs').promises;
+const _ = require('lodash');
 const { Client } = require('pg');
 const { getUsers } = require('./api');
 const config = require('./configs/db.json');
-const { mapUsers } = require('./utils');
-
+const {
+  manufacturers: { chanceOfBeingManufacturer },
+  orders: { chanceToMakeOrder },
+} = require('./configs/randomGeneration.json');
+const {
+  mapUsers,
+  mapManufacturers,
+  mapProducts,
+  mapOrders,
+  mapOrdersToProducts,
+} = require('./utils');
 
 const client = new Client(config);
 
@@ -10,31 +21,17 @@ start();
 async function start() {
   await client.connect();
 
+  const resetDBQuery = await fs.readFile(
+    './sql/not_rozetka/resetDB.sql',
+    'utf-8'
+  );
+
   const users = await getUsers();
 
-  await client.query(`
-  CREATE TABLE IF NOT EXISTS users (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(64) NOT NULL CHECK (first_name != ''),
-    last_name VARCHAR(64) NOT NULL CHECK (last_name != ''),
-    email VARCHAR(128) NOT NULL UNIQUE CHECK (email != ''),
-    "password" VARCHAR (64) NOT NULL CHECK ("password" != ''),
-    hair_color VARCHAR(64) CHECK(hair_color != ''),
-    foot_size NUMERIC(3,1) CHECK(foot_size BETWEEN 20 AND 50),
-    is_male BOOLEAN,
-    weight NUMERIC(5, 2) CHECK(
-      weight BETWEEN 0.1 AND 999
-    ),
-    height NUMERIC(3, 2) CHECK(
-      height BETWEEN 0.5 AND 3
-    ),
-    birthday DATE CHECK(birthday <= current_date AND birthday > '1900-1-1'),
-    created_at timestamp NOT NULL DEFAULT current_timestamp,
-    updated_at timestamp NOT NULL DEFAULT current_timestamp
-  );
-  `);
+  await client.query(resetDBQuery);
 
-  await client.query(`
+  // створення користувачів
+  const { rows: userIds } = await client.query(`
     INSERT INTO users (
       first_name,
       last_name,
@@ -47,8 +44,56 @@ async function start() {
       height,
       birthday
     ) VALUES 
-    ${mapUsers(users)};
+    ${mapUsers(users)}
+    RETURNING id;
   `);
+
+  // визначення виробників
+  const manufacturers = userIds.filter(
+    () => _.random(0, 100) <= chanceOfBeingManufacturer
+  );
+
+  // створення виробників
+  const { rows: manufacturerIds } = await client.query(`
+  INSERT INTO manufacturers (
+    user_id
+  ) VALUES
+  ${mapManufacturers(manufacturers)}
+  RETURNING id`);
+
+  // створення продуктів
+  const { rows: productIds } = await client.query(`
+  INSERT INTO products (
+    manufacturer_id,
+    name,
+    category,
+    price,
+    quantity
+  ) VALUES
+  ${mapProducts(manufacturerIds)}
+  RETURNING id`);
+
+  // створення замовлень
+  const orderingUsers = userIds.filter(
+    () => _.random(0, 100) <= chanceToMakeOrder
+  );
+
+  const { rows: orderIds } = await client.query(`
+  INSERT INTO orders (
+    customer_id
+  ) VALUES
+  ${mapOrders(orderingUsers)}
+  RETURNING id`);
+
+  // // заповнення замовлень
+  await client.query(`
+  INSERT INTO products_to_orders (
+    order_id,
+    product_id,
+    quantity
+  ) VALUES
+  ${mapOrdersToProducts(orderIds, productIds)}
+ `);
 
   await client.end();
 }
