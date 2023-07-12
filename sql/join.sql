@@ -34,7 +34,46 @@ WHERE p.category ILIKE 'food' AND order_id = 288;
 -- Кількість товарів з категорії їжи в кожному замовленні
 SELECT count(*), order_id
 FROM products_to_orders pto
-JOIN products p ON p.id = pto.product_id
+JOIN products p ON p.id = pto.product_id 
 WHERE p.category ILIKE 'food'
 GROUP BY order_id
 ORDER BY count(*) ASC;
+--
+SELECT *
+FROM 
+-- ліва
+products p 
+LEFT JOIN
+-- права 
+products_to_orders pto ON p.id = pto.product_id
+ORDER BY p.id;
+--
+SELECT *
+FROM 
+-- ліва
+products_to_orders pto 
+RIGHT JOIN
+-- права 
+products p 
+ON p.id = pto.product_id
+ORDER BY p.id;
+--
+SELECT *
+FROM 
+-- ліва
+products_to_orders pto 
+FULL JOIN
+-- права 
+products p 
+ON p.id = pto.product_id
+ORDER BY p.id;
+--
+SELECT *
+FROM 
+-- ліва
+products p 
+LEFT JOIN
+-- права 
+products_to_orders pto ON p.id = pto.product_id
+WHERE product_id IS NULL
+ORDER BY p.id;
