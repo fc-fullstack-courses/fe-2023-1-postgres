@@ -132,3 +132,77 @@ CREATE TABLE students_to_teachers (
   PRIMARY KEY (teacher_id, student_id)
 );
 --
+/*
+  Багатозначна залежність - залежність X -> Y, коли для одного Х існує багато Y
+*/
+-- не 4 НФ
+/*
+  - служби доставки
+  - види товарів
+  - локації для доставки
+*/
+CREATE TABLE delivery_services (
+  id INT,
+  name TEXT
+);
+--
+CREATE TABLE product_types (
+  id INT,
+  name TEXT
+);
+--
+CREATE TABLE delivery_services_to_product_types (
+  service_id INT REFERENCES delivery_services,
+  product_type_id INT REFERENCES product_types,
+  location TEXT NOT NULL,
+  PRIMARY KEY (service_id, product_type_id)
+);
+--
+INSERT INTO delivery_services_to_product_types
+(service_id, product_id, location) VALUES
+(1,1,'Kyiv'),
+(1,1,'Zaporizhzhia'),
+(1,1,'Dnipro'),
+(1,1,'Lviv'),
+(1,1,'Odesa'),
+(2,1,'Odesa');
+-- 4 НФ
+CREATE TABLE delivery_services (
+  id INT,
+  name TEXT
+);
+--
+CREATE TABLE product_types (
+  id INT,
+  name TEXT
+);
+--
+CREATE TABLE locations (
+  location TEXT
+);
+--
+CREATE TABLE delivery_services_to_locations (
+  service_id INT,
+  location TEXT,
+  PRIMARY KEY(service_id, location_id)
+);
+--
+CREATE TABLE delivery_services_to_product_types (
+  service_id INT REFERENCES delivery_services,
+  product_type_id INT REFERENCES product_types,
+  PRIMARY KEY (service_id, product_type_id)
+);
+--
+INSERT INTO delivery_services_to_locations
+VALUES
+(1, 'Kyiv'),
+(1, 'Zaporizhzhia'),
+(1, 'Dnipro'),
+(2, 'Odesa');
+--
+INSERT INTO delivery_services_to_product_types
+VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1);
