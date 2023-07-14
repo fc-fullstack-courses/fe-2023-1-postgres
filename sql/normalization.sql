@@ -76,4 +76,59 @@ CREATE TABLE departments(
   department TEXT,
   department_phone_number VARCHAR(64)
 );
+-- не BCNF
+/*
+  є сутності студентів, викладачів та предметів
+  студенти вивчають багато предметів,
+  кожен викладач веде 1 предмет
+  teacher n : 1 subject
+  students m : n subject
+  students m : n teachers
+*/
+CREATE TABLE students (
+  id INT PRIMARY KEY,
+  name TEXT
+);
+--
+CREATE TABLE teachers (
+  id INT PRIMARY KEY,
+  name TEXT
+);
+--
+CREATE TABLE students_to_teachers_to_subjects (
+  teacher_id INT REFERENCES teachers,
+  student_id INT REFERENCES students,
+  subject VARCHAR(64),
+  PRIMARY KEY (teacher_id, student_id)
+);
+-- 
+INSERT INTO students_to_teachers_to_subjects
+(teacher_id, student_id, subject) 
+VALUES
+(1,1,'Math'),
+(1,2,'Math'),
+(2,1,'Physics'),
+(2,2,'Physical Education');
+-- BCNF
+CREATE TABLE students (
+  id INT PRIMARY KEY,
+  name TEXT
+);
+
+CREATE TABLE subjects (
+  id INT PRIMARY KEY,
+  name TEXT
+);
+
+CREATE TABLE teachers (
+  id INT PRIMARY KEY,
+  subject_id INT REFERENCES subjects,
+  name TEXT
+);
+--
+CREATE TABLE students_to_teachers (
+  teacher_id INT REFERENCES teachers,
+  student_id INT REFERENCES students,
+  PRIMARY KEY (teacher_id, student_id)
+);
 --
